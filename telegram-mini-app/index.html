@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DayPlanner</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="app-header">
+      <h1 id="header-title">DayPlanner</h1>
+      <span id="header-date"></span>
+    </header>
+
+    <nav id="tab-bar">
+      <button class="tab-btn active" data-tab="schedule">📋 Расписание</button>
+      <button class="tab-btn" data-tab="calories">🔥 Калории</button>
+      <button class="tab-btn" data-tab="settings">⚙️ Настройки</button>
+    </nav>
+
+    <main id="tab-content">
+      <!-- ====== РАСПИСАНИЕ ====== -->
+      <section id="tab-schedule" class="tab-panel active">
+        <div class="panel-header">
+          <h2>План на день</h2>
+          <button id="add-task-btn" class="btn-icon">+</button>
+        </div>
+        <ul id="task-list"></ul>
+        <div id="empty-tasks" class="empty-state">
+          <p>Пока нет задач</p>
+          <p class="sub">Нажмите + чтобы добавить</p>
+        </div>
+      </section>
+
+      <!-- ====== КАЛОРИИ ====== -->
+      <section id="tab-calories" class="tab-panel">
+        <div class="panel-header">
+          <h2>Счётчик калорий</h2>
+          <button id="add-food-btn" class="btn-icon">+</button>
+        </div>
+
+        <div id="calorie-summary">
+          <div class="cal-circle-wrap">
+            <svg viewBox="0 0 120 120" class="cal-circle">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="var(--tg-secondary-bg)" stroke-width="8"/>
+              <circle id="cal-progress" cx="60" cy="60" r="54" fill="none" stroke="var(--tg-accent)" stroke-width="8"
+                stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292" transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="cal-circle-text">
+              <span id="cal-consumed">0</span>
+              <small>/ <span id="cal-goal">2000</span></small>
+            </div>
+          </div>
+          <div class="cal-stats">
+            <div class="cal-stat"><span id="cal-consumed-stat">0</span> ккал</div>
+            <div class="cal-stat"><span id="cal-remaining-stat">2000</span> ккал осталось</div>
+          </div>
+        </div>
+
+        <h3 class="section-title">Приёмы пищи</h3>
+        <ul id="food-list"></ul>
+        <div id="empty-foods" class="empty-state">
+          <p>Ещё не добавлено</p>
+          <p class="sub">Нажмите + чтобы записать еду</p>
+        </div>
+      </section>
+
+      <!-- ====== НАСТРОЙКИ ====== -->
+      <section id="tab-settings" class="tab-panel">
+        <h2>Настройки</h2>
+        <div class="setting-row">
+          <label for="cal-goal-input">Дневная норма калорий</label>
+          <input type="number" id="cal-goal-input" min="500" max="10000" value="2000">
+        </div>
+        <button id="reset-day-btn" class="btn-danger">Сбросить данные дня</button>
+        <button id="reset-all-btn" class="btn-danger">Сбросить всё</button>
+      </section>
+    </main>
+  </div>
+
+  <!-- ====== МОДАЛКИ ====== -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal" class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Новая задача</h3>
+        <button id="modal-close" class="btn-icon">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
